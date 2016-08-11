@@ -2,18 +2,17 @@ package testCases;
 
 import actions.AddProducts_Action;
 import actions.ExploreProducts_Action;
-import actions.Verification_Action;
 import org.junit.*;
+import org.testng.Reporter;
 import pageObjects.BaseClass;
 import pageObjects.Unichi_Page;
 import actions.Checkout_Action;
 import org.junit.runners.MethodSorters;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import utility.*;
 
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
-public class UnichiTest_Junit {
+public class UnichiTest_JUnit {
 
     public static WebDriver driver;
     private String sTestCaseName;
@@ -25,11 +24,11 @@ public class UnichiTest_Junit {
         sTestCaseName = Utils.getTestCaseName(this.toString());
         Log.startTestCase(sTestCaseName);
 
-        ExcelUtils.setExcelFile(Constant.dataPath + Constant.dataFile, "Sheet1");
+        ExcelUtils.loadExcelFile(Constant.dataPath + Constant.dataFile);
 
-        iTestCaseRow = ExcelUtils.getRowContains(sTestCaseName, Constant.Col_TestCaseName);
+        iTestCaseRow = ExcelUtils.getRowContains(sTestCaseName, Constant.Col_TestCaseName, "Unichi");
 
-        driver = Utils.OpenBrowser(iTestCaseRow);
+        driver = Utils.openBrowser(iTestCaseRow, "https://unichi.com.au");
 
         new BaseClass(driver);
     }
@@ -49,10 +48,17 @@ public class UnichiTest_Junit {
 
         System.out.println(Unichi_Page.purchaseDetails().getAttribute("innerText"));
 
-        Verification_Action.execute();
+        Utils.waitForElement(Unichi_Page.purchaseDetails());
 
-        if (BaseClass.bResult == true) {
-            ExcelUtils.setCellData("Pass", iTestCaseRow, Constant.Col_Result);
+        if(Unichi_Page.purchaseDetails().getAttribute("innerText").contains("Purchase details")) {
+            Reporter.log("Purchase detail page is displayed successfully");
+        } else {
+            Reporter.log("Purchase detail failed to display");
+            BaseClass.bResult = false;
+        }
+
+        if(BaseClass.bResult == true) {
+            ExcelUtils.setCellData("Pass", iTestCaseRow, Constant.Col_Result, "Unichi");
         } else {
             throw new Exception("Test cases failed because of verification");
         }

@@ -67,13 +67,13 @@ public class ExcelUtils {
                 Cell.setCellValue(Result);
             }
             // Constant variables Test Data path and Test Data file name
-            FileOutputStream fileOut = new FileOutputStream(Constants.Path_TestData);
+            FileOutputStream fileOut = new FileOutputStream(Constants.Path_TestPlan);
             ExcelWBook.write(fileOut);
             //fileOut.flush();
             fileOut.close();
-            ExcelWBook = new XSSFWorkbook(new FileInputStream(Constants.Path_TestData));
+            ExcelWBook = new XSSFWorkbook(new FileInputStream(Constants.Path_TestPlan));
         }catch(Exception e){
-            DriverScript.bResult = false;
+            DriverScript.result = false;
         }
     }
 

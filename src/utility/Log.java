@@ -10,10 +10,10 @@ public class Log {
     private static Logger Log = Logger.getLogger(Log.class.getName());
 
     // This is to print log for the beginning of the test case, as we usually run so many test cases as a test suite
-    public static void startTestCase(String sTestCaseName) {
+    public static void startTestCase(String testCaseName) {
         Log.info("****************************************************************************************");
         Log.info("****************************************************************************************");
-        Log.info("$$$$$$$$$$$$$$$$$$$$$              " + sTestCaseName + "       $$$$$$$$$$$$$$$$$$$$$$$$$");
+        Log.info("$$$$$$$$$$$$$$$$$$$$$              " + testCaseName + "       $$$$$$$$$$$$$$$$$$$$$$$$$");
         Log.info("****************************************************************************************");
         Log.info("****************************************************************************************");
     }

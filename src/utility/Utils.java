@@ -14,12 +14,10 @@ import java.util.concurrent.TimeUnit;
 public class Utils {
     public static WebDriver driver = null;
 
-    public static WebDriver openBrowser(int iTestCaseRowNo, String URL) throws Exception {
-        String sBrowserName;
+    public static WebDriver openBrowser(int iTestCaseRowNo, String URL, String browserName) throws Exception {
         try {
-            sBrowserName = ExcelUtils.getCellData(iTestCaseRowNo, Constant.Col_Browser, "Unichi");
 
-            driver = Browser.getBrowser(sBrowserName);
+            driver = Browser.getBrowser(browserName);
             Log.info("New driver instantiated");
 
             driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);

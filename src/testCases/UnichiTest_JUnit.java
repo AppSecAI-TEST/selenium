@@ -16,7 +16,8 @@ public class UnichiTest_JUnit {
 
     public static WebDriver driver;
     private String sTestCaseName;
-    private int iTestCaseRow;
+    private int iTestCaseRowNo;
+    private String sBrowserName;
 
     @Before
     public void setUp() throws Exception {
@@ -26,9 +27,10 @@ public class UnichiTest_JUnit {
 
         ExcelUtils.loadExcelFile(Constant.dataPath + Constant.dataFile);
 
-        iTestCaseRow = ExcelUtils.getRowContains(sTestCaseName, Constant.Col_TestCaseName, "Unichi");
+        iTestCaseRowNo = ExcelUtils.getRowContains(sTestCaseName, Constant.Col_TestCaseName, "Unichi");
+        sBrowserName = ExcelUtils.getCellData(iTestCaseRowNo, Constant.Col_Browser, "Google");
 
-        driver = Utils.openBrowser(iTestCaseRow, "https://unichi.com.au");
+        driver = Utils.openBrowser(iTestCaseRowNo, "https://unichi.com.au",sBrowserName);
 
         new BaseClass(driver);
     }
@@ -38,9 +40,9 @@ public class UnichiTest_JUnit {
 
         ExploreProducts_Action.execute();
 
-        AddProducts_Action.execute(iTestCaseRow);
+        AddProducts_Action.execute(iTestCaseRowNo);
 
-        Checkout_Action.execute(iTestCaseRow);
+        Checkout_Action.execute(iTestCaseRowNo);
 
         Thread.sleep(5000);
 
@@ -58,7 +60,7 @@ public class UnichiTest_JUnit {
         }
 
         if(BaseClass.bResult == true) {
-            ExcelUtils.setCellData("Pass", iTestCaseRow, Constant.Col_Result, "Unichi");
+            ExcelUtils.setCellData("Pass", iTestCaseRowNo, Constant.Col_Result, "Unichi");
         } else {
             throw new Exception("Test cases failed because of verification");
         }

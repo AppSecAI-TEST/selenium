@@ -21,6 +21,7 @@ public class GoogleTest_TestNG {
     public static WebDriver driver;
     private String sTestCaseName;
     private int iTestCaseRowNo;
+    private String sBrowserName;
 
     @BeforeMethod
     public void beforeMethod() throws Exception {
@@ -33,8 +34,9 @@ public class GoogleTest_TestNG {
         ExcelUtils.loadExcelFile(Constant.dataPath + Constant.dataFile);
 
         iTestCaseRowNo = ExcelUtils.getRowContains(sTestCaseName, Constant.Col_TestCaseName, "Google");
+        sBrowserName = ExcelUtils.getCellData(iTestCaseRowNo, Constant.Col_Browser, "Google");
 
-        driver = Utils.openBrowser(iTestCaseRowNo, "http://www.google.com");
+        driver = Utils.openBrowser(iTestCaseRowNo, "http://www.google.com",sBrowserName);
 
         new BaseClass(driver);
 

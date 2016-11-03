@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 import utility.Log;
 
+import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 import static executionEngine.DriverScript.Objects;
@@ -22,7 +23,7 @@ public class Keywords {
 
     public static WebDriver driver;
 
-    public static void openBrowser(String object, String data) {
+    public static void openBrowser(String object, String data) throws MalformedURLException {
         Log.info("Launch " + data + " browser");
         driver = utility.Browser.getBrowser(data);
         driver.manage().window().maximize();

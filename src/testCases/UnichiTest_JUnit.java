@@ -28,7 +28,7 @@ public class UnichiTest_JUnit {
         ExcelUtils.loadExcelFile(Constant.dataPath + Constant.dataFile);
 
         iTestCaseRowNo = ExcelUtils.getRowContains(sTestCaseName, Constant.Col_TestCaseName, "Unichi");
-        sBrowserName = ExcelUtils.getCellData(iTestCaseRowNo, Constant.Col_Browser, "Google");
+        sBrowserName = ExcelUtils.getCellData(iTestCaseRowNo, Constant.Col_Browser, "Unichi");
 
         driver = Utils.openBrowser(iTestCaseRowNo, "https://unichi.com.au",sBrowserName);
 
